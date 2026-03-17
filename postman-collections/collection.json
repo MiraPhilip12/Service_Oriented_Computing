@@ -1,0 +1,269 @@
+{
+  "info": {
+    "name": "Restaurant Food Delivery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"password123\",\n    \"phone\": \"+1234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Restaurants",
+      "item": [
+        {
+          "name": "Get All Restaurants",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/restaurants",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "restaurants"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Restaurant",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Burger Palace\",\n    \"description\": \"Best burgers in town\",\n    \"cuisine\": [\"American\", \"Fast Food\"],\n    \"address\": {\n        \"street\": \"123 Main St\",\n        \"city\": \"New York\",\n        \"state\": \"NY\",\n        \"zipCode\": \"10001\"\n    },\n    \"contact\": {\n        \"phone\": \"+1234567890\",\n        \"email\": \"info@burgerpalace.com\"\n    },\n    \"openingHours\": [\n        {\n            \"day\": \"Monday-Friday\",\n            \"open\": \"09:00\",\n            \"close\": \"22:00\"\n        }\n    ],\n    \"imageUrl\": \"https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/restaurants",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "restaurants"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Menu Items",
+      "item": [
+        {
+          "name": "Get Restaurant Menu",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/restaurants/{{restaurantId}}/menu",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "restaurants", "{{restaurantId}}", "menu"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Menu Item",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Classic Cheeseburger\",\n    \"description\": \"Beef patty with cheese, lettuce, tomato, and special sauce\",\n    \"price\": 9.99,\n    \"category\": \"Burgers\",\n    \"imageUrl\": \"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500\",\n    \"preparationTime\": 15,\n    \"customization\": [\n        {\n            \"name\": \"Cheese Type\",\n            \"options\": [\n                {\"name\": \"Cheddar\", \"price\": 0},\n                {\"name\": \"Swiss\", \"price\": 1},\n                {\"name\": \"Pepper Jack\", \"price\": 1}\n            ]\n        },\n        {\n            \"name\": \"Extra Toppings\",\n            \"options\": [\n                {\"name\": \"Bacon\", \"price\": 2},\n                {\"name\": \"Avocado\", \"price\": 1.5},\n                {\"name\": \"Fried Egg\", \"price\": 1}\n            ]\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/restaurants/{{restaurantId}}/menu",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "restaurants", "{{restaurantId}}", "menu"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"restaurantId\": \"{{restaurantId}}\",\n    \"items\": [\n        {\n            \"menuItemId\": \"{{menuItemId}}\",\n            \"quantity\": 2,\n            \"customization\": [\n                {\n                    \"name\": \"Cheese Type\",\n                    \"option\": \"Swiss\",\n                    \"price\": 1\n                }\n            ]\n        }\n    ],\n    \"deliveryAddress\": {\n        \"street\": \"456 Oak Ave\",\n        \"city\": \"New York\",\n        \"state\": \"NY\",\n        \"zipCode\": \"10002\"\n    },\n    \"paymentMethod\": \"card\",\n    \"specialInstructions\": \"Please ring doorbell\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{orderId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "orders", "{{orderId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Delivery",
+      "item": [
+        {
+          "name": "Track Delivery",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/delivery/track/{{orderId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "delivery", "track", "{{orderId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Delivery Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{deliveryToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"in_transit\",\n    \"currentLocation\": {\n        \"lat\": 40.7128,\n        \"lng\": -74.0060\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/delivery/{{deliveryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "delivery", "{{deliveryId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
